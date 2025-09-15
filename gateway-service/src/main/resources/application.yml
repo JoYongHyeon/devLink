@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+
+spring:
+  cloud:
+    gateway:
+      mvc:
+        routes:
+          - id:
+            uri:
+            predicates:
+              - name:
+                args:
+                  name:
+                  regexp:

@@ -1,0 +1,72 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.9'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'devlink.gateway'
+version = '0.0.1-SNAPSHOT'
+description = 'gateway-service'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "2024.0.2")
+}
+
+dependencies {
+    // OAuth2/OpenID Connect 클라이언트 (소셜 로그인, 외부 인증 서버 연동)
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
+    // JWT 토큰 검증 및 OAuth2 Resource Server 기능 (API 보호)
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+
+    // Spring Security 핵심 (인증/인가 프레임워크)
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // Spring Cloud Gateway (API 게이트웨이, 라우팅/필터 처리)
+    implementation 'org.springframework.cloud:spring-cloud-starter-gateway-mvc'
+
+    // 보일러플레이트 코드 제거용 (Getter/Setter/Builder 자동 생성)
+    compileOnly 'org.projectlombok:lombok'
+
+    // 개발 편의 기능 (자동 리스타트, LiveReload) → 운영 배포 시 제외
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Lombok 애노테이션을 빌드 시 처리 (컴파일 타임 코드 생성)
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // Spring Boot 기본 테스트 프레임워크 (JUnit + AssertJ + Mockito 포함)
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // 보안 관련 테스트 지원 (Mock 사용자, JWT 테스트 유틸)
+    testImplementation 'org.springframework.security:spring-security-test'
+
+    // JUnit 플랫폼 런처 (테스트 실행 환경 제공)
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
