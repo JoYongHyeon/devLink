@@ -25,14 +25,31 @@ repositories {
 }
 
 dependencies {
+	// Spring Data JPA (ORM, DB 매핑/쿼리 처리)
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// Spring MVC (REST API, 웹 애플리케이션 기본 기능)
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// Lombok (Getter/Setter/Builder 자동 생성)
 	compileOnly 'org.projectlombok:lombok'
+
+	// 개발 편의 기능 (자동 리스타트, LiveReload) → 운영 배포 시 제외
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// Lombok 애노테이션을 빌드 시 처리 (컴파일 타임 코드 생성)
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// Spring Boot 기본 테스트 프레임워크 (JUnit + AssertJ + Mockito 포함)
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// JUnit 플랫폼 런처 (테스트 실행 환경 제공)
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// H2 Database (인메모리 DB, 웹 콘솔 지원)
+	implementation 'com.h2database:h2:2.2.224'
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()
